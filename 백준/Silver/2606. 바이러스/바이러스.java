@@ -1,55 +1,53 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
 
 public class Main {
-	
-	static int vertices;
-	static int edges;
+
+	static int V;
+	static int E;
+	static int[][] map;
 	static boolean[] visited;
-	static int[][] graph;
-	
+
 	public static void main(String[] args) throws IOException {
-	
+		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		vertices = Integer.parseInt(br.readLine());
-		edges = Integer.parseInt(br.readLine());
-		
-		graph = new int[vertices+1][vertices+1];
-		visited = new boolean[vertices+1];
-		for (int i=0; i< edges; i++) {
-			String[] str = br.readLine().split(" ");
-			int a = Integer.parseInt(str[0]);
-			int b = Integer.parseInt(str[1]);
-			graph[a][b] = 1;
-			graph[b][a] = 1;
-			
+		StringTokenizer st;
+		V = Integer.parseInt(br.readLine());
+		E = Integer.parseInt(br.readLine());
+		map = new int[V + 1][V + 1];
+		visited = new boolean[V+1];
+		for (int i = 0; i < E; i++) {
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			map[a][b] = 1;
+			map[b][a] = 1;
 		}
 		bfs(1);
-		
+
 	}
-	
-	static void bfs(int start) {
-		Queue<Integer> queue = new LinkedList<>();
-		int count = 0;
-		visited[start] = true;
-		queue.add(start);
+	static void bfs(int num) {
+		Deque<Integer> deque = new ArrayDeque<Integer>();
+		int cnt = 0;
+		visited[num] = true;
+		deque.addLast(num);
 		
-		while(!queue.isEmpty()) {
-			int node = queue.poll();
+		while(!deque.isEmpty()) {
+			int v = deque.pollFirst();
 			
-			for(int i=1; i < graph.length ; i++) {
-				if(graph[node][i] == 1 && !visited[i]) {
-					queue.add(i);
+			for(int i =0; i<map.length; i++) {
+				if(map[v][i] == 1 && !visited[i]) {
+					deque.addLast(i);
 					visited[i] = true;
-					count ++;
+					cnt ++;
 				}
 			}
 		}
-		System.out.println(count);
-		
+		System.out.println(cnt);
 	}
+
 }

@@ -9,7 +9,6 @@ public class Main {
 	static int N;
 	static int[] dr = { 0, 1, 1 };
 	static int[] dc = { 1, 1, 0 };
-	static boolean[][] visited;
 	static int position = 0;
 	static int cnt;
 
@@ -18,9 +17,6 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		map = new int[N][N];
-		visited = new boolean[N][N];
-		visited[0][0] = true;
-		visited[0][1] = true;
 		StringTokenizer st;
 
 		for (int r = 0; r < N; r++) {
@@ -46,30 +42,24 @@ public class Main {
 				int nr = r+dr[d];
 				int nc = c+dc[d];
 				
-				if(nr < N && nc <N && !visited[nr][nc]) {
+				if(nr < N && nc <N) {
 					if( d == 0) {
 						if(map[nr][nc] == 1) continue;
 						int temp = position;
 						position = 0;
-						visited[nr][nc] = true;
 						powerset(nr,nc);
-						visited[nr][nc] = false;
 						position = temp;
 					} else if (d == 1) {
 						if(map[nr][nc] == 1 || (nr-1 >= 0 && map[nr-1][nc] == 1) || (nc-1 >= 0 && map[nr][nc-1] == 1)) continue;
 						int temp = position;
 						position = 2;
-						visited[nr][nc] = true;
 						powerset(nr,nc);
-						visited[nr][nc] = false;
 						position = temp;
 					} else if (d == 2) {
 						if(map[nr][nc] == 1) continue;
 						int temp = position;
 						position = 1;
-						visited[nr][nc] = true;
 						powerset(nr,nc);
-						visited[nr][nc] = false;
 						position = temp;
 					}
 				}

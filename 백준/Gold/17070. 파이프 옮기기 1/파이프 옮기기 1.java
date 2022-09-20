@@ -42,21 +42,19 @@ public class Main {
 				int nr = r+dr[d];
 				int nc = c+dc[d];
 				
-				if(nr < N && nc <N) {
+				if(nr < N && nc <N && map[nr][nc] == 0) {
 					if( d == 0) {
-						if(map[nr][nc] == 1) continue;
 						int temp = position;
 						position = 0;
 						powerset(nr,nc);
 						position = temp;
 					} else if (d == 1) {
-						if(map[nr][nc] == 1 || (nr-1 >= 0 && map[nr-1][nc] == 1) || (nc-1 >= 0 && map[nr][nc-1] == 1)) continue;
+						if((nr-1 >= 0 && map[nr-1][nc] == 1) || (nc-1 >= 0 && map[nr][nc-1] == 1)) continue;
 						int temp = position;
 						position = 2;
 						powerset(nr,nc);
 						position = temp;
 					} else if (d == 2) {
-						if(map[nr][nc] == 1) continue;
 						int temp = position;
 						position = 1;
 						powerset(nr,nc);
@@ -65,7 +63,6 @@ public class Main {
 				}
 			}
 		}
-
 	}
 
 }

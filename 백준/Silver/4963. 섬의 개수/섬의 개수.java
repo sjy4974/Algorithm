@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -37,10 +36,10 @@ public class Main {
 				}
 			}
 			cnt = 0;
-			for(int r= 0; r< h; r++) {
-				for(int c= 0; c< w; c++) {
-					if(map[r][c] == 1 && !visited[r][c]) {
-						bfs(r,c);
+			for (int r = 0; r < h; r++) {
+				for (int c = 0; c < w; c++) {
+					if (map[r][c] == 1 && !visited[r][c]) {
+						dfs(r, c);
 						cnt++;
 					}
 				}
@@ -51,27 +50,18 @@ public class Main {
 
 	}
 
-	public static void bfs(int r, int c) {
-		Queue<int[]> queue = new LinkedList<>();
-		queue.add(new int[] {r,c});
+	public static void dfs(int r, int c) {
 		visited[r][c] = true;
-		
-		while(!queue.isEmpty()) {
-			int[] rc = queue.poll();
-			
-			for(int d = 0; d<8; d++) {
-				int nr = rc[0] + dr[d];
-				int nc = rc[1] + dc[d];
-				
-				if(nr >= 0 && nc >= 0 && nr < h && nc < w) {
-					if(map[nr][nc] == 1 && !visited[nr][nc]) {
-						visited[nr][nc] = true;
-						queue.offer(new int[] {nr,nc});
-					}
+		for (int d = 0; d < 8; d++) {
+			int nr = r + dr[d];
+			int nc = c + dc[d];
+
+			if (nr >= 0 && nc >= 0 && nr < h && nc < w) {
+				if (map[nr][nc] == 1 && !visited[nr][nc]) {
+					dfs(nr,nc);
 				}
 			}
 		}
-		
 	}
 
 }
